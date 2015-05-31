@@ -57,3 +57,78 @@ audit:
     max_restarts: 10
     name_format: HOSTNAME
     name:
+
+    remote:
+      remote_server:
+      port: 60
+      local_port:
+      transport: tcp
+      mode: immediate
+      queue_file: /var/spool/audit/remote.log
+      queue_depth: 200
+      format: managed
+      network_retry_time: 1
+      max_tries_per_record: 3
+      max_time_per_record: 5
+      heartbeat_timeout: 0
+      network_failure_action: stop
+      disk_low_action: ignore
+      disk_full_action: ignore
+      disk_error_action: syslog
+      remote_ending_action: suspend
+      generic_error_action: syslog
+      generic_warning_action: syslog
+      overflow_action: syslog
+      enable_krb5: no
+      krb5_principal:
+      krb5_client_name: auditd
+      krb5_key_file: /etc/audisp/audisp-remote.key
+
+    zos_remote:
+      server: zos_server.localdomain
+      port: 389
+      user: RACF_ID
+      password: racf_password
+      timeout: 15
+      q_depth: 64
+
+    plugins:
+      af_unix:
+        active: no
+        direction: out
+        path: builtin_af_unix
+        type: builtin
+        args: 0640 /var/run/audispd_events
+        format: string
+
+      au_prelude:
+        active: no
+        direction: out
+        path: /sbin/audisp-prelude
+        type: always
+        args:
+        format: string
+
+      au_remote:
+        active: no
+        direction: out
+        path: /sbin/audisp-remote
+        type: always
+        args:
+        format: string
+
+      zos_remote:
+        active: no
+        direction: out
+        path: /sbin/audispd-zos-remote
+        type: always
+        args: /etc/audisp/zos-remote.conf
+        format: string
+
+      syslog:
+        active: no
+        direction: out
+        path: builtin_syslog
+        type: builtin
+        args: LOG_INFO
+        format: string
