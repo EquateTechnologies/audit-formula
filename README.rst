@@ -35,6 +35,15 @@ or only select the appropriate pam modules to update ::
 	  - audit.pam.ssh
 	  - audit.pam.login
 
+``audit.auditspd-plugins``
+--------------------------
+
+Additional states to configure audispd plugins ::
+
+  servname:
+    - audit.audispd-plugins
+
+
 Usage
 =====
 
@@ -43,6 +52,7 @@ Include audit in your top file ::
     servname:
       - audit
       - audit.pam
+      - audit.audispd-plugins
 
 If you need to override the default settings, create a new pillar file and
 override the needed parameters, eg ::

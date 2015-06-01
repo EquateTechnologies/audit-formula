@@ -4,9 +4,9 @@
 #
 audit:
 
-  # Default settings for the audit daemon
+  ## Default settings for the audit daemon
   auditd:
-    # parameter in auditd.conf
+    ## parameters in auditd.conf
     log_file: /var/log/audit/audit.log
     log_format: RAW
     log_group: root
@@ -35,21 +35,22 @@ audit:
     enable_krb5: no
     krb5_principal: auditd
     krb5_key_file: /etc/audit/audit.key
-    # defaults / sysconfig
+
+    ## parameters in /etc/{defaults,ysconfig}
     stop_disable: yes
     clean_stop: yes
     use_augenrules: no
     lang: en_US
     extraoptions:
 
-  # common flags for auditctl (audit.rules)
+  ## common flags for auditctl (audit.rules)
   auditctl:
     enabled:
     flag:
     rate_limit:
     backlog_limit: 320
 
-  # parameters for audit dispatcher daemon
+  ## parameters for audit dispatcher daemon
   audispd:
     q_depth: 80
     overflow_action: SYSLOG
@@ -58,6 +59,7 @@ audit:
     name_format: HOSTNAME
     name:
 
+    ## Parameters for remote config usually /etc/audisp/audisp-remote.conf
     remote:
       remote_server:
       port: 60
@@ -84,6 +86,7 @@ audit:
       krb5_client_name: auditd
       krb5_key_file: /etc/audisp/audisp-remote.key
 
+    ## Parameters for remote config usually /etc/audisp/zos-remote.conf
     zos_remote:
       server: zos_server.localdomain
       port: 389
@@ -92,7 +95,9 @@ audit:
       timeout: 15
       q_depth: 64
 
+    ## Plugins parameters /etc/audisp/plugins.d
     plugins:
+      ## af_unix
       af_unix:
         active: no
         direction: out
@@ -101,6 +106,7 @@ audit:
         args: 0640 /var/run/audispd_events
         format: string
 
+      ## af_prelude
       au_prelude:
         active: no
         direction: out
@@ -109,6 +115,7 @@ audit:
         args:
         format: string
 
+      ## au_remote
       au_remote:
         active: no
         direction: out
@@ -117,6 +124,7 @@ audit:
         args:
         format: string
 
+      ## zos_remote
       zos_remote:
         active: no
         direction: out
@@ -125,6 +133,7 @@ audit:
         args: /etc/audisp/zos-remote.conf
         format: string
 
+      ## syslog
       syslog:
         active: no
         direction: out
