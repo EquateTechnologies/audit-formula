@@ -7,6 +7,7 @@ audit:
   ## Default settings for the audit daemon
   auditd:
     ## parameters in auditd.conf
+    plugin_dir: /etc/audisp/plugins.d/
     log_file: /var/log/audit/audit.log
     log_format: RAW
     log_group: root
