@@ -37,3 +37,20 @@ audispd-conf:
     - source: salt://audit/files/audispd.conf
     - template: jinja
     - mode: 0640
+
+auditd-service:
+  service.running:
+    - name: auditd
+    - require:
+        - pkg: auditd-pkg
+        - file: auditd-sysconfig
+        - file: auditd-conf
+        - file: auditd-rules
+        - file: auditd-immutable
+        - file: audispd-conf
+    - watch:
+        - file: auditd-sysconfig
+        - file: auditd-conf
+        - file: auditd-rules
+        - file: auditd-immutable
+        - file: audispd-conf
