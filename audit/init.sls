@@ -39,6 +39,21 @@ audispd-conf:
     - mode: 0640
 
 auditd-service:
+  cmd.run:
+    - name: augenrules
+    - require:
+        - pkg: auditd-pkg
+        - file: auditd-sysconfig
+        - file: auditd-conf
+        - file: auditd-rules
+        - file: auditd-immutable
+        - file: audispd-conf
+    - watch:
+        - file: auditd-sysconfig
+        - file: auditd-conf
+        - file: auditd-rules
+        - file: auditd-immutable
+        - file: audispd-conf
   service.running:
     - name: auditd
     - require:
