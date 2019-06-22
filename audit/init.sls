@@ -20,9 +20,15 @@ auditd-conf:
 
 auditd-rules:
   file.managed:
-    - name: /etc/audit/audit.rules
+    - name: /etc/audit/rules.d/00_audit.rules
     - source: salt://audit/files/audit.rules
     - template: jinja
+    - mode: 0640
+
+auditd-immutable:
+  file.managed:
+    - name: /etc/audit/rules.d/99_immutable.rules
+    - source: salt://audit/files/immutable.rules
     - mode: 0640
 
 audispd-conf:

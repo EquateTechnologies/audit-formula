@@ -26,4 +26,6 @@
 {%- endif %}
 
 # Feel free to add below this line. See auditctl man page
-
+{%- for rule in auditctl.rules %}
+{{ rule }}
+{%-endfor %}
